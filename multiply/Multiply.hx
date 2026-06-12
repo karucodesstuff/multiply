@@ -1,20 +1,19 @@
-package add;
+package multiply;
 
 import haxe.Rest;
 
-class Add {
+class Multiply {
 	/**
-	 * Calculates the sum of two numbers
+	 * Calculates the product of multiple numbers
 	 * @param x 
 	 * @param y 
-	 * @return The sum of `x` and `y`
+	 * @return The product of `x` and the rest of the numbers
 	 */
-
-	public static function add(x:Int, y:Rest<Int>):Int {
+	public static function multiply(x:Int, y:Rest<Int>):Int {
 		var i:Int = 0;
 		var ret:Int = x;
 		while (i < y.length) {
-			ret = _add(ret, y[i]);
+			ret = _multiply(ret, y[i]);
 			i++;
 		}
 		return ret;
@@ -30,5 +29,20 @@ class Add {
 			y = b;
 		} while (a > 0);
 		return b;
+	}
+
+	private static function _multiply(x:Int, y:Int):Int {
+		var result:Int = 0;
+		var multiplier:Int = x;
+		var multiplicand:Int = y;
+
+		while (multiplicand != 0) {
+			if ((multiplicand & 1) != 0) {
+				result = _add(result, multiplier);
+			}
+			multiplier = multiplier << 1;
+			multiplicand = multiplicand >>> 1;
+		}
+		return result;
 	}
 }
